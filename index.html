@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carmen, Mihaela, Monica (și Dana) - Alexandru Andrieș</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e4e4e4;
+            min-height: 100vh;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #f39c12;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .artist {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #bdc3c7;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .video-container {
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 450px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            border: 3px solid #f39c12;
+        }
+        
+        .lyrics-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .lyrics-column {
+            padding: 1.5rem;
+        }
+        
+        .lyrics-column h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #f39c12;
+            margin-bottom: 2rem;
+            text-align: center;
+            border-bottom: 2px solid #f39c12;
+            padding-bottom: 0.5rem;
+        }
+        
+        .romanian-lyrics h2 {
+            color: #e74c3c;
+            border-bottom-color: #e74c3c;
+        }
+        
+        .verse {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .verse-line {
+            margin-bottom: 0.3rem;
+            opacity: 0.9;
+        }
+        
+        .refrain {
+            font-weight: 600;
+            color: #f39c12;
+            font-style: italic;
+            margin-top: 0.5rem;
+            font-size: 1.15rem;
+        }
+        
+        .romanian-lyrics .refrain {
+            color: #e74c3c;
+        }
+        
+        .chorus {
+            background: rgba(243, 156, 18, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid #f39c12;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+        
+        .romanian-lyrics .chorus {
+            background: rgba(231, 76, 60, 0.1);
+            border-left-color: #e74c3c;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            color: #95a5a6;
+            font-style: italic;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .dedication {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: #f39c12;
+            margin-top: 1rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 968px) {
+            .lyrics-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .video-container iframe {
+                height: 350px;
+            }
+        }
+        
+        /* Subtle animation on scroll */
+        .verse {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .verse:nth-child(1) { animation-delay: 0.1s; }
+        .verse:nth-child(2) { animation-delay: 0.2s; }
+        .verse:nth-child(3) { animation-delay: 0.3s; }
+        .verse:nth-child(4) { animation-delay: 0.4s; }
+        .verse:nth-child(5) { animation-delay: 0.5s; }
+        .verse:nth-child(6) { animation-delay: 0.6s; }
+        .verse:nth-child(7) { animation-delay: 0.7s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+<style>
+#vibeGate{
+  position:fixed; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.86);
+  z-index:99999;
+  padding:24px;
+}
+#vibeGate .card{
+  width:min(720px, 92vw);
+  border-radius:18px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 18px 48px rgba(0,0,0,0.45);
+  padding:26px 22px;
+  text-align:center;
+}
+#vibeGate .title{
+  font-family: Arial Black, Arial, sans-serif;
+  font-weight:900;
+  letter-spacing:0.5px;
+  font-size:34px;
+  line-height:1.05;
+  margin-bottom:16px;
+}
+#vibeGate .btn{
+  cursor:pointer;
+  border:2px solid rgba(255,255,255,0.22);
+  background:rgba(255,255,255,0.10);
+  color:#fff;
+  padding:14px 26px;
+  border-radius:14px;
+  font-size:18px;
+  font-family: Arial Black, Arial, sans-serif;
+  box-shadow:0 10px 24px rgba(0,0,0,0.35);
+}
+#vibeGate .tag{
+  margin-top:14px;
+  font-family: Arial, sans-serif;
+  font-size:12px;
+  opacity:0.9;
+}
+</style>
+
+</head>
+<body>
+
+<div id="vibeGate">
+  <div class="card">
+    <div class="title"><span style="color:#FFD700;">Click</span> <span style="color:#00A3FF;">to Vibe</span></div>
+    <button id="vibeBtn" class="btn">▶ Start</button>
+    <div class="tag">Vibe Story Production™</div>
+  </div>
+</div>
+
+
+    <div class="container">
+        <header>
+            <h1>Carmen, Mihaela, Monica (și Dana)</h1>
+            <div class="artist">Alexandru Andrieș</div>
+        </header>
+        
+        <div class="video-container">
+            <div class="video-container" style="width:100%; display:flex; justify-content:center;">
+  <video id="vibeVideo" playsinline preload="metadata" controls style="width:100%; max-width:720px; border-radius:14px; display:block; margin:0 auto; box-shadow:0 10px 30px rgba(0,0,0,0.45);">
+    <source src="https://nicholasdemeter.github.io/vibestory.org/assets/Carmen_Carmen.mp4" type="video/mp4">
+    Your browser can’t play this video.
+  </video>
+</div>
+        </div>
+        
+        <div class="lyrics-wrapper">
+            <!-- Romanian Lyrics -->
+            <div class="lyrics-column romanian-lyrics">
+                <h2>Versuri Românești</h2>
+                
+                <div class="verse">
+                    <div class="verse-line">Suni şi zici că vrei să mă vezi</div>
+                    <div class="verse-line">Şi pe-urmă te evaporezi!</div>
+                    <div class="refrain">Carmen, Carmen,</div>
+                    <div class="refrain">Uite-aşa mă omori...</div>
+                </div>
+                
+                <div class="verse">
+                    <div class="verse-line">Apari pe stradă şi mă opreşti</div>
+                    <div class="verse-line">Doar ca să mă zăpăceşti!</div>
+                    <div class="refrain">Mihaela,</div>
+                    <div class="refrain">Uite-aşa mă omori...</div>
+                </div>
+                
+                <div class="verse chorus">
+                    <div class="verse-line">Nu-nţeleg ce vrei să faci,</div>
+                    <div class="verse-line">De ce vorbeşti ca pe-urmă să taci?</div>
+                    <div class="verse-line">Zău, nu se mai poate aşa!</div>
+                    <div class="verse-line">Ori intri, ori ieşi din viaţa mea!</div>
+                </div>
+                
+                <div class="verse">
+                    <div class="verse-line">Seara ţi-e glasul plin de viori,</div>
+                    <div class="verse-line">A doua zi aud doar ciori...</div>
+                    <div class="refrain">Monica,</div>
+                    <div class="refrain">Uite-aşa mă omori...</div>
+                </div>
+                
+                <div class="verse chorus">
+                    <div class="verse-line">Cum poţi să mă păcăleşti</div>
+                    <div class="verse-line">Fără ca măcar să clipeşti?</div>
+                    <div class="verse-line">Zău, cred cîteodată că sub rochia ta</div>
+                    <div class="verse-line">Nu bate nimic sau bate-altceva!</div>
+                </div>
+                
+                <div class="verse">
+                    <div class="verse-line">Zău că, stimaţi telespectatori,</div>
+                    <div class="verse-line">Lucrul ăsta se întîmplă de prea multe ori!</div>
+                    <div class="refrain">Dana, Dana,</div>
+                    <div class="refrain">Uite-aşa mă omori...</div>
+                </div>
+                
+                <div class="verse">
+                    <div class="refrain">Carmen, Carmen,</div>
+                    <div class="refrain">Mihaela, Monica...</div>
+                </div>
+            </div>
+            
+            <!-- English Translation -->
+            <div class="lyrics-column english-lyrics">
+                <h2>English Translation</h2>
+                
+                <div class="verse">
+                    <div class="verse-line">You call and say you want to see me</div>
+                    <div class="verse-line">Then you just vanish into thin air!</div>
+                    <div class="refrain">Carmen, Carmen,</div>
+                    <div class="refrain">This is how you're killing me...</div>
+                </div>
+                
+                <div class="verse">
+                    <div class="verse-line">You appear on the street and stop me</div>
+                    <div class="verse-line">Just to leave me dazed and confused!</div>
+                    <div class="refrain">Mihaela,</div>
+                    <div class="refrain">This is how you're killing me...</div>
+                </div>
+                
+                <div class="verse chorus">
+                    <div class="verse-line">I don't understand what you're trying to do,</div>
+                    <div class="verse-line">Why do you talk and then go silent?</div>
+                    <div class="verse-line">I swear, this can't go on!</div>
+                    <div class="verse-line">Either you're in or you're out of my life!</div>
+                </div>
+                
+                <div class="verse">
+                    <div class="verse-line">At night your voice is full of violins,</div>
+                    <div class="verse-line">The next day I hear only crows...</div>
+                    <div class="refrain">Monica,</div>
+                    <div class="refrain">This is how you're killing me...</div>
+                </div>
+                
+                <div class="verse chorus">
+                    <div class="verse-line">How can you deceive me</div>
+                    <div class="verse-line">Without even blinking?</div>
+                    <div class="verse-line">I swear, sometimes I think that under your dress</div>
+                    <div class="verse-line">Nothing beats or something else is beating!</div>
+                </div>
+                
+                <div class="verse">
+                    <div class="verse-line">I swear, dear viewers,</div>
+                    <div class="verse-line">This happens far too often!</div>
+                    <div class="refrain">Dana, Dana,</div>
+                    <div class="refrain">This is how you're killing me...</div>
+                </div>
+                
+                <div class="verse">
+                    <div class="refrain">Carmen, Carmen,</div>
+                    <div class="refrain">Mihaela, Monica...</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Alexandru Andrieș - Blues Expert (2010)</p>
+            <p class="dedication">For Carmen ❤️</p>
+        </footer>
+    </div>
+
+<div class="video-container" style="position:relative;">
+  <video id="vibeVideo" playsinline preload="metadata" style="width:100%; max-width:720px; border-radius:14px; display:block; margin:0 auto; box-shadow:0 10px 30px rgba(0,0,0,0.45);" controls>
+    <source src="https://nicholasdemeter.github.io/vibestory.org/assets/Carmen_Carmen.mp4" type="video/mp4">
+    Your browser can’t play this video.
+  </video>
+
+  <div id="vibeOverlay" style="
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(0,0,0,0.82);
+    border-radius:14px;
+    padding:24px;
+    text-align:center;">
+    <div style="max-width:520px;">
+      <div style="font-family: Arial Black, Arial, sans-serif; font-weight:900; letter-spacing:0.5px; font-size:26px; line-height:1.15; margin-bottom:14px;">
+        <span style="color:#FFD700;">Click</span> <span style="color:#00A3FF;">to Vibe</span>
+      </div>
+      <button id="vibeBtn" style="
+        cursor:pointer;
+        border:2px solid rgba(255,255,255,0.22);
+        background:rgba(255,255,255,0.08);
+        color:#fff;
+        padding:14px 22px;
+        border-radius:12px;
+        font-size:18px;
+        font-family: Arial Black, Arial, sans-serif;
+        box-shadow:0 10px 24px rgba(0,0,0,0.35);
+        ">
+        ▶ Start
+      </button>
+      <div style="margin-top:12px; font-family: Arial, sans-serif; font-size:12px; opacity:0.9;">
+        Vibe Story Production™
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  const video = document.getElementById('vibeVideo');
+  const overlay = document.getElementById('vibeOverlay');
+  const btn = document.getElementById('vibeBtn');
+
+  if (!video || !overlay || !btn) return;
+
+  function startVibe(){
+    overlay.style.display = 'none';
+    // Ensure unmuted; user gesture should allow audio.
+    video.muted = false;
+    const p = video.play();
+    if (p && typeof p.catch === 'function') {
+      p.catch(() => {
+        // If playback fails, show overlay again so the user can retry.
+        overlay.style.display = 'flex';
+      });
+    }
+  }
+
+  btn.addEventListener('click', startVibe);
+
+  // If user hits play on native controls, hide overlay.
+  video.addEventListener('play', () => {
+    overlay.style.display = 'none';
+  });
+
+  // If paused before starting, allow overlay to be shown again if you want:
+  // video.addEventListener('pause', () => overlay.style.display = 'flex');
+})();
+</script>
+
+
+<script>
+(function(){
+  const gate = document.getElementById('vibeGate');
+  const btn = document.getElementById('vibeBtn');
+  const video = document.getElementById('vibeVideo');
+  if (!gate || !btn || !video) return;
+
+  function startVibe(){
+    gate.style.display = 'none';
+    video.muted = false;
+    const p = video.play();
+    if (p && typeof p.catch === 'function'){
+      p.catch(() => {
+        // If browser blocks playback, show gate again so user can retry.
+        gate.style.display = 'flex';
+      });
+    }
+  }
+
+  btn.addEventListener('click', startVibe);
+})();
+</script>
+
+</body>
+</html>
